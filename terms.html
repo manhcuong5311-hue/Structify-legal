@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use — Structify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0d0d12;
+      --surface:   #16161f;
+      --border:    rgba(255,255,255,0.07);
+      --gold:      #c9a84c;
+      --gold-soft: rgba(201,168,76,0.12);
+      --text:      #e8e6e0;
+      --muted:     rgba(232,230,224,0.45);
+      --accent:    #7c6fff;
+      --red:       #e05252;
+      --red-soft:  rgba(224,82,82,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -10vh;
+      right: -10vw;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(124,111,255,0.05) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
+    }
+
+    /* Header */
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 64px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .logo-mark {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--gold), #8b6914);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.25);
+    }
+
+    .logo-mark svg {
+      width: 22px; height: 22px;
+      fill: none; stroke: white;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .site-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: 64px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s 0.1s ease forwards;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(124,111,255,0.1);
+      border: 1px solid rgba(124,111,255,0.2);
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .effective-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    /* TOC */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s ease forwards;
+    }
+
+    .toc-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc li {
+      counter-increment: toc;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .toc li::before {
+      content: counter(toc, decimal-leading-zero);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      min-width: 22px;
+    }
+
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .toc a:hover { opacity: 1; color: var(--accent); }
+
+    /* Sections */
+    .section {
+      margin-bottom: 52px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.55s ease forwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.25s; }
+    .section:nth-child(2) { animation-delay: 0.31s; }
+    .section:nth-child(3) { animation-delay: 0.37s; }
+    .section:nth-child(4) { animation-delay: 0.43s; }
+    .section:nth-child(5) { animation-delay: 0.49s; }
+    .section:nth-child(6) { animation-delay: 0.55s; }
+    .section:nth-child(7) { animation-delay: 0.61s; }
+    .section:nth-child(8) { animation-delay: 0.67s; }
+    .section:nth-child(9) { animation-delay: 0.73s; }
+    .section:nth-child(10){ animation-delay: 0.79s; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      background: rgba(124,111,255,0.1);
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: rgba(232,230,224,0.8);
+      margin-bottom: 14px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    ul li, ol li {
+      font-size: 0.95rem;
+      color: rgba(232,230,224,0.8);
+      padding-left: 22px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    ol { counter-reset: list; }
+    ol li { counter-increment: list; }
+    ol li::before {
+      content: counter(list) '.';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Highlight box */
+    .highlight {
+      background: var(--gold-soft);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+
+    .highlight p {
+      color: rgba(232,230,224,0.9);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .highlight strong { color: var(--gold); }
+
+    /* Warning box */
+    .warning {
+      background: var(--red-soft);
+      border: 1px solid rgba(224,82,82,0.2);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 20px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .warning-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .warning p {
+      color: rgba(232,230,224,0.9);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 0 52px;
+    }
+
+    /* Contact */
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: white;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .contact-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-card a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .site-footer {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .site-footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    .back-top {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s;
+    }
+
+    .back-top:hover { color: var(--accent); }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .wrapper { padding: 48px 18px 80px; }
+      .site-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="3"/>
+        <path d="M8 2v4M16 2v4M3 10h18"/>
+        <circle cx="8" cy="15" r="1.5" fill="white" stroke="none"/>
+        <circle cx="12" cy="15" r="1.5" fill="white" stroke="none"/>
+        <circle cx="16" cy="15" r="1.5" fill="white" stroke="none"/>
+      </svg>
+    </div>
+    <span class="site-name">Structify</span>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Legal Document
+    </div>
+    <h1>Terms of <em>Use</em></h1>
+    <p class="hero-sub">By using Structify, you agree to these terms. Please read them carefully — they're written to be clear and fair.</p>
+    <div class="effective-date">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+      Effective: March 16, 2026
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#license">License to Use</a></li>
+      <li><a href="#premium">Premium Purchase</a></li>
+      <li><a href="#refunds">Refunds & Cancellations</a></li>
+      <li><a href="#restrictions">Restrictions</a></li>
+      <li><a href="#data">Your Data</a></li>
+      <li><a href="#disclaimer">Disclaimer of Warranties</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#changes">Changes to Terms</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <!-- Sections -->
+  <div id="acceptance" class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Acceptance of Terms</h2>
+    </div>
+    <p>These Terms of Use ("Terms") govern your use of the Structify iOS application ("App") developed and operated by Structify ("we", "us", or "our").</p>
+    <p>By downloading, installing, or using the App, you confirm that you are at least 13 years of age and agree to be bound by these Terms. If you do not agree, please do not use the App.</p>
+    <div class="highlight">
+      <p><strong>Simple version:</strong> Using the app means you agree to these rules. They're here to protect both you and us.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="license" class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>License to Use</h2>
+    </div>
+    <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use Structify on any Apple device you own or control, subject to these Terms and Apple's App Store Terms of Service.</p>
+    <p>This license is for personal, non-commercial use only. You may not:</p>
+    <ul>
+      <li>Copy, modify, or distribute the App or any portion of it</li>
+      <li>Reverse engineer, decompile, or attempt to extract the source code</li>
+      <li>Sell, resell, or sublicense access to the App</li>
+      <li>Use the App for any commercial purpose without our written consent</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="premium" class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Premium Purchase</h2>
+    </div>
+    <p>Structify offers a one-time in-app purchase called "Structify Premium" that unlocks additional features including unlimited events and habits, advanced customization, notifications, backup & export, and full icon access.</p>
+    <ul>
+      <li>The purchase price is displayed in the App before you confirm the transaction</li>
+      <li>Payment is charged to your Apple ID account at confirmation of purchase</li>
+      <li>Premium is a one-time purchase with no recurring subscription fees</li>
+      <li>Premium features are linked to your Apple ID and can be restored on other devices via "Restore Purchase"</li>
+      <li>All transactions are processed by Apple and subject to Apple's payment terms</li>
+    </ul>
+    <div class="highlight">
+      <p><strong>No subscriptions.</strong> Structify Premium is a single one-time payment. You will never be charged automatically or on a recurring basis.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="refunds" class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Refunds & Cancellations</h2>
+    </div>
+    <p>Since Structify Premium is a one-time purchase (not a subscription), there is no cancellation mechanism. Refund eligibility is determined entirely by Apple's refund policy.</p>
+    <p>To request a refund:</p>
+    <ul>
+      <li>Visit <a href="https://reportaproblem.apple.com" style="color:var(--accent);">reportaproblem.apple.com</a></li>
+      <li>Sign in with your Apple ID</li>
+      <li>Find the Structify purchase and submit your refund request</li>
+    </ul>
+    <p>We do not process refunds directly. All refund decisions are made by Apple per their App Store refund policy.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="restrictions" class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Restrictions</h2>
+    </div>
+    <p>You agree not to use the App in any way that:</p>
+    <ul>
+      <li>Violates any applicable law or regulation</li>
+      <li>Infringes the intellectual property rights of Structify or any third party</li>
+      <li>Attempts to gain unauthorized access to any part of the App or its underlying systems</li>
+      <li>Interferes with the proper functioning of the App</li>
+      <li>Uses automated means (bots, scrapers) to access or interact with the App</li>
+    </ul>
+    <div class="warning">
+      <div class="warning-icon">⚠️</div>
+      <p>Violation of these restrictions may result in immediate termination of your license to use the App without refund.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="data" class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Your Data</h2>
+    </div>
+    <p>All data you create in Structify (events, habits, preferences, completion logs) is stored locally on your device and belongs entirely to you.</p>
+    <p>You are responsible for:</p>
+    <ul>
+      <li>Maintaining backups of your own data using the in-app Backup feature</li>
+      <li>Any data loss resulting from device failure, app deletion, or iOS updates</li>
+      <li>Ensuring your device is secured to protect your personal schedule information</li>
+    </ul>
+    <p>We do not access, collect, or store your personal app data on any server. See our <a href="https://manhcuong5311-hue.github.io/Structify-legal/" style="color:var(--accent);">Privacy Policy</a> for full details.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="disclaimer" class="section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Disclaimer of Warranties</h2>
+    </div>
+    <p>Structify is provided "as is" and "as available" without any warranties of any kind, either express or implied, including but not limited to:</p>
+    <ul>
+      <li>Warranties of merchantability or fitness for a particular purpose</li>
+      <li>Warranties that the App will be uninterrupted, error-free, or free of viruses</li>
+      <li>Warranties regarding the accuracy or reliability of any content within the App</li>
+    </ul>
+    <p>We make no warranty that the App will meet your specific requirements or that defects will be corrected. Your use of the App is at your sole risk.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="liability" class="section">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Limitation of Liability</h2>
+    </div>
+    <p>To the maximum extent permitted by applicable law, Structify and its developers shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
+    <ul>
+      <li>Loss of data or corruption of files</li>
+      <li>Loss of revenue or profits</li>
+      <li>Missed appointments or scheduling errors</li>
+      <li>Any other losses arising from your use of or inability to use the App</li>
+    </ul>
+    <p>In no event shall our total liability to you exceed the amount you paid for the App (i.e., the price of Structify Premium, if purchased).</p>
+    <div class="warning">
+      <div class="warning-icon">📋</div>
+      <p>Some jurisdictions do not allow the exclusion of certain warranties or limitation of liability, so some of the above limitations may not apply to you.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="changes" class="section">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2>Changes to Terms</h2>
+    </div>
+    <p>We reserve the right to modify these Terms at any time. When we make changes:</p>
+    <ul>
+      <li>The "Effective" date at the top of this page will be updated</li>
+      <li>Material changes will be communicated via an in-app notice on next launch</li>
+      <li>Continued use of the App after changes constitutes acceptance of the updated Terms</li>
+    </ul>
+    <p>If you disagree with any changes, you may stop using the App. Previous versions of these Terms are available upon request.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div id="contact" class="section">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2>Contact Us</h2>
+    </div>
+    <p>If you have any questions about these Terms or need support, please reach out:</p>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div>
+        <p style="margin-bottom:6px;font-weight:500;">Email</p>
+        <p style="margin:0;"><a href="mailto:support@structify.app">Manhcuong531@gmail.com</a></p>
+        <p style="margin-top:8px;font-size:0.82rem;color:var(--muted);">We aim to respond within 48 hours on business days.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© 2026 Structify. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://manhcuong5311-hue.github.io/Structify-legal/">Privacy Policy</a>
+      <a href="#" class="back-top">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        Back to top
+      </a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
